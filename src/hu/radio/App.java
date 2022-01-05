@@ -8,10 +8,12 @@ import java.util.Scanner;
 public class App {
 
     private final MessageService messageService;
+    private final FileWriter writer;
 
     private App() {
         DataApi dataApi = new DataApi(new FileReader(), new DataParser());
         messageService = new MessageService(dataApi.getData("veetel.txt"));
+        writer = new FileWriter("adaas.txt");
     }
 
     public static void main(String[] args) {
@@ -28,6 +30,6 @@ public class App {
         System.out.println(messageService.getDayAndReceiverIdByContent("farkas"));
         System.out.println("4. feladat:");
         System.out.println(messageService.getDailyStatistic());
-        System.out.println(messageService.getMergedMessages());
+        writer.writeAll(messageService.getMergedMessages());
     }
 }
